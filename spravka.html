@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Справка — ITOne</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --border: #e8eaed;
+  --border2: #f0f1f4;
+  --accent: #e8420a;
+  --accent2: #ff5722;
+  --accent-bg: #fff3f0;
+  --blue: #3b5bdb;
+  --blue-bg: #eef2ff;
+  --green: #2f9e44;
+  --green-bg: #ebfbee;
+  --orange: #e67700;
+  --orange-bg: #fff9db;
+  --purple: #7048e8;
+  --purple-bg: #f3f0ff;
+  --text: #1a1d27;
+  --text2: #4a4e69;
+  --text3: #9096b2;
+  --code-bg: #0d1117;
+  --code-text: #c9d1d9;
+  --tag-bg: #eef0fb;
+  --tag-text: #3b4cc0;
+  --radius: 10px;
+  --font: 'Manrope', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── TOPNAV (matching ITOne) ── */
+.topnav {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  gap: 28px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -.3px;
+}
+.logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 4px; }
+.nav-links a {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text2);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 7px;
+  transition: background .12s;
+}
+.nav-links a:hover { background: var(--bg); }
+.nav-links a.active { color: var(--text); background: var(--bg); }
+.nav-search {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  width: 200px;
+}
+.nav-search input {
+  border: none;
+  background: none;
+  outline: none;
+  font-family: var(--font);
+  font-size: 13px;
+  color: var(--text);
+  width: 100%;
+}
+.search-icon { color: var(--text3); font-size: 13px; }
+
+/* ── LAYOUT ── */
+.page-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 16px 60px;
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  margin-bottom: 28px;
+}
+.page-header h1 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.page-header p {
+  font-size: 13.5px;
+  color: var(--text3);
+}
+
+/* ── SECTION GROUP ── */
+.section-group {
+  margin-bottom: 32px;
+}
+.section-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: var(--text3);
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 8px;
+  transition: box-shadow .15s;
+}
+.card:hover { box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+
+/* accordion */
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+}
+.card-icon {
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.card-icon.blue { background: var(--blue-bg); }
+.card-icon.green { background: var(--green-bg); }
+.card-icon.orange { background: var(--orange-bg); }
+.card-icon.purple { background: var(--purple-bg); }
+.card-icon.red { background: var(--accent-bg); }
+
+.card-heading {
+  flex: 1;
+}
+.card-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.card-sub {
+  font-size: 12px;
+  color: var(--text3);
+  font-weight: 500;
+}
+.card-arrow {
+  font-size: 11px;
+  color: var(--text3);
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+.card-head.open .card-arrow { transform: rotate(90deg); }
+
+.card-body {
+  display: none;
+  border-top: 1px solid var(--border2);
+  padding: 16px 18px;
+}
+.card-body.open { display: block; }
+
+/* ── INFO BLOCKS inside cards ── */
+.info-text {
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.info-text:last-child { margin-bottom: 0; }
+.info-text strong { color: var(--text); font-weight: 700; }
+.info-text code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--tag-bg);
+  color: var(--blue);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* highlight note */
+.hl-note {
+  border-radius: 7px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+.hl-note.blue { background: var(--blue-bg); color: #1e3a8a; border-left: 3px solid var(--blue); }
+.hl-note.orange { background: var(--orange-bg); color: #7c4a00; border-left: 3px solid var(--orange); }
+.hl-note.green { background: var(--green-bg); color: #145226; border-left: 3px solid var(--green); }
+.hl-note.red { background: var(--accent-bg); color: #7f1d1d; border-left: 3px solid var(--accent); }
+.hl-note strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .3px; margin-bottom: 2px; }
+
+/* code block */
+.code-wrap {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #21262d;
+  margin: 10px 0;
+  font-family: var(--mono);
+}
+.code-top {
+  background: #161b22;
+  padding: 6px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #21262d;
+}
+.code-label {
+  font-size: 10.5px;
+  color: #6e7681;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+.copy-btn {
+  font-size: 10.5px;
+  background: none;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--mono);
+  transition: all .12s;
+}
+.copy-btn:hover { background: #21262d; color: #c9d1d9; }
+.code-content {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 12px 14px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* key-value table */
+.kv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 10px 0;
+}
+.kv-table tr { border-bottom: 1px solid var(--border2); }
+.kv-table tr:last-child { border: none; }
+.kv-table td {
+  padding: 7px 6px;
+  vertical-align: top;
+}
+.kv-table td:first-child {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--blue);
+  white-space: nowrap;
+  width: 40%;
+  font-weight: 500;
+}
+.kv-table td:last-child { color: var(--text2); }
+
+/* tag pills */
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; }
+.tag {
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 5px;
+  font-family: var(--mono);
+}
+.tag.orange { background: var(--orange-bg); color: var(--orange); }
+.tag.green { background: var(--green-bg); color: var(--green); }
+.tag.red { background: var(--accent-bg); color: var(--accent); }
+
+/* divider */
+.divider { height: 1px; background: var(--border2); margin: 12px 0; }
+
+/* two-col grid */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+.grid2-item {
+  background: var(--bg);
+  border-radius: 7px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  color: var(--text2);
+}
+.grid2-item strong { display: block; font-size: 12px; color: var(--text); margin-bottom: 3px; }
+
+/* ── FIXED HELP BTN (matching main site) ── */
+.fab-back {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 11px 18px;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(232,66,10,.35);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: transform .15s, box-shadow .15s;
+  z-index: 99;
+}
+.fab-back:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,66,10,.45); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .topnav { padding: 0 14px; gap: 14px; }
+  .nav-links { display: none; }
+  .nav-search { width: 140px; }
+  .page-wrap { padding: 20px 12px 80px; }
+  .page-header h1 { font-size: 20px; }
+  .grid2 { grid-template-columns: 1fr; }
+  .fab-back { bottom: 14px; right: 14px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="logo" href="#"><span>IT</span>One</a>
+  <div class="nav-links">
+    <a href="#">Главная</a>
+    <a href="#">Блоги</a>
+    <a href="#">Сообщество</a>
+    <a href="#" class="active">О нас</a>
+  </div>
+  <div class="nav-search">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="Поиск...">
+  </div>
+</nav>
+
+<button class="fab-back" onclick="history.back()">← Назад</button>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <h1>Справка</h1>
+    <p>Базовая информация по инструментам и командам ALT Linux</p>
+  </div>
+
+
+  <!-- ═══════════════ РАЗДЕЛ: СЕТЬ ═══════════════ -->
+  <div class="section-group">
+    <div class="section-title">Сеть и интерфейсы</div>
+
+    <!-- nmtui / nmcli -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon blue">📡</div>
+        <div class="card-heading">
+          <div class="card-title">nmtui и nmcli — настройка сети</div>
+          <div class="card-sub">NetworkManager · интерфейсы · IP-адреса</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text"><strong>nmtui</strong> — текстовый интерфейс (TUI) для NetworkManager. Позволяет настроить IP, маску, шлюз и DNS без редактирования файлов вручную. Запускается командой <code>nmtui</code>.</p>
+        <p class="info-text"><strong>nmcli</strong> — консольный инструмент, удобен для скриптов и быстрых изменений. Показывает статус соединений, активирует/деактивирует интерфейсы.</p>
+
+        <div class="hl-note blue">
+          <strong>nmtui — разделы меню</strong>
+          «Изменить соединение» → выбрать интерфейс → IPv4 Config → Manual → указать Address, Gateway, DNS. После сохранения — «Активировать соединение».
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash — nmcli</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content"># === Просмотр состояния ===
+nmcli device status          # список интерфейсов
+nmcli con show               # список соединений
+ip addr show                 # текущие IP-адреса
+ip route show                # таблица маршрутов
+
+# === Управление соединениями ===
+nmcli con up "ens18"         # активировать соединение
+nmcli con down "ens18"       # деактивировать
+nmcli con reload             # перечитать конфиги
+
+# === Статический IP вручную ===
+nmcli con mod "ens18" ipv4.method manual \
+  ipv4.addresses "192.168.1.10/24" \
+  ipv4.gateway "192.168.1.1" \
+  ipv4.dns "8.8.8.8,1.1.1.1"
+nmcli con up "ens18"</div>
+        </div>
+        <!-- БЛОК: добавь свои команды сюда -->
+        <div class="hl-note orange">
+          <strong>⚠️ ALT Linux — важно</strong>
+          В ALT Linux файлы конфигурации сети лежат в <code>/etc/net/ifaces/ens18/</code>. Файл <code>options</code> содержит BOOTPROTO, файл <code>ipv4address</code> — адрес.
+        </div>
+      </div>
+    </div>
+
+    <!-- VLAN -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon blue">🔀</div>
+        <div class="card-heading">
+          <div class="card-title">VLAN — виртуальные сети</div>
+          <div class="card-sub">tagged / untagged · trunk · access</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text">VLAN (Virtual LAN) позволяет логически разделить сеть на сегменты поверх одного физического интерфейса. В Linux используется через <code>ip link</code> или файлы конфигурации NetworkManager.</p>
+        <div class="grid2">
+          <div class="grid2-item"><strong>Access-порт</strong>Один VLAN, трафик без тега. Для конечных устройств.</div>
+          <div class="grid2-item"><strong>Trunk-порт</strong>Несколько VLAN, трафик с тегами 802.1Q. Между коммутаторами/роутерами.</div>
+        </div>
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content"># Создать VLAN-интерфейс (VLAN ID 10 на ens18)
+ip link add link ens18 name ens18.10 type vlan id 10
+ip addr add 192.168.10.1/24 dev ens18.10
+ip link set ens18.10 up
+
+# Проверить
+ip link show type vlan
+cat /proc/net/vlan/config</div>
+        </div>
+        <!-- БЛОК: добавь информацию о конфигурации на конкретном оборудовании -->
+      </div>
+    </div>
+
+    <!-- DNS / DHCP -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon green">🌐</div>
+        <div class="card-heading">
+          <div class="card-title">DNS и DHCP — адресация в сети</div>
+          <div class="card-sub">bind9 · isc-dhcp-server · resolv.conf</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text"><strong>DNS</strong> (Domain Name System) — переводит доменные имена в IP-адреса. Сервер <strong>bind9</strong> настраивается через зональные файлы.</p>
+        <p class="info-text"><strong>DHCP</strong> автоматически раздаёт IP-адреса клиентам. Сервер <strong>isc-dhcp-server</strong> — классический вариант для Linux.</p>
+
+        <div class="divider"></div>
+
+        <p class="info-text"><strong>Основные файлы bind9:</strong></p>
+        <table class="kv-table">
+          <tr><td>/etc/bind/named.conf.local</td><td>Описание зон (zone "example.local")</td></tr>
+          <tr><td>/etc/bind/named.conf.options</td><td>Форвардеры, ACL, общие параметры</td></tr>
+          <tr><td>/etc/bind/db.example</td><td>Файл зоны (A, NS, MX, PTR записи)</td></tr>
+        </table>
+
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash — проверка DNS</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">named-checkconf                     # проверить конфиг
+named-checkzone example.local /etc/bind/db.example
+systemctl restart bind9
+dig @127.0.0.1 server01.example.local
+nslookup server01 127.0.0.1</div>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash — проверка DHCP</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">systemctl restart isc-dhcp-server
+journalctl -u isc-dhcp-server -f
+cat /var/lib/dhcp/dhcpd.leases       # выданные аренды</div>
+        </div>
+
+        <div class="hl-note orange">
+          <strong>⚠️ Частая ошибка</strong>
+          В <code>/etc/default/isc-dhcp-server</code> обязательно нужно прописать <code>INTERFACESv4="ens18"</code> — иначе служба не стартует.
+        </div>
+        <!-- БЛОК: добавь конфиг своей зоны -->
+      </div>
+    </div>
+
+    <!-- Маршрутизация -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon orange">🗺️</div>
+        <div class="card-heading">
+          <div class="card-title">Маршрутизация — статика и основы</div>
+          <div class="card-sub">ip route · forwarding · шлюз</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text">Маршрутизация определяет, по какому пути пакеты покидают систему. Статические маршруты прописываются вручную и не изменяются автоматически.</p>
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">ip route show                         # текущая таблица маршрутов
+ip route add 10.0.0.0/8 via 192.168.1.1   # добавить маршрут
+ip route del 10.0.0.0/8                    # удалить маршрут
+ip route add default via 192.168.1.1       # маршрут по умолчанию
+
+# Включить IP-форвардинг (для роутера)
+echo 1 > /proc/sys/net/ipv4/ip_forward
+# Постоянно — добавить в /etc/sysctl.conf:
+# net.ipv4.ip_forward = 1</div>
+        </div>
+        <!-- БЛОК: добавь свою таблицу маршрутов -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════ РАЗДЕЛ: БЕЗОПАСНОСТЬ ═══════════════ -->
+  <div class="section-group">
+    <div class="section-title">Безопасность и доступ</div>
+
+    <!-- SSH -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon red">🔑</div>
+        <div class="card-heading">
+          <div class="card-title">SSH — удалённый доступ</div>
+          <div class="card-sub">ключи · sshd_config · подключение</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text">SSH (Secure Shell) — протокол для защищённого удалённого управления сервером. Настройка ведётся в файле <code>/etc/ssh/sshd_config</code>.</p>
+
+        <div class="hl-note blue">
+          <strong>Аутентификация по ключу</strong>
+          Генерируешь пару ключей на клиенте. Публичный ключ копируешь на сервер в <code>~/.ssh/authorized_keys</code>. После этого пароль при входе не нужен.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content"># Генерация ключей (на клиенте)
+ssh-keygen -t ed25519 -C "mykey"
+
+# Копировать публичный ключ на сервер
+ssh-copy-id user@192.168.1.10
+
+# Подключение по ключу
+ssh -i ~/.ssh/id_ed25519 user@192.168.1.10
+
+# Важные параметры /etc/ssh/sshd_config
+# PasswordAuthentication no      ← отключить пароли
+# PermitRootLogin no             ← запретить root
+# PubkeyAuthentication yes       ← включить ключи
+# Port 22                        ← порт (можно сменить)
+
+systemctl restart sshd
+ss -tlnp | grep sshd             # проверить порт</div>
+        </div>
+        <!-- БЛОК: добавь параметры своего sshd_config -->
+      </div>
+    </div>
+
+    <!-- iptables / ufw -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon red">🔥</div>
+        <div class="card-heading">
+          <div class="card-title">Firewall — iptables и ufw</div>
+          <div class="card-sub">правила · цепочки · NAT · фильтрация</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text"><strong>iptables</strong> — низкоуровневый файрволл Linux. Работает с цепочками INPUT, OUTPUT, FORWARD. <strong>ufw</strong> — упрощённая обёртка над iptables для повседневного использования.</p>
+
+        <div class="grid2">
+          <div class="grid2-item"><strong>Цепочка INPUT</strong>Пакеты, входящие на сам сервер.</div>
+          <div class="grid2-item"><strong>Цепочка FORWARD</strong>Пакеты, проходящие через сервер (роутинг).</div>
+          <div class="grid2-item"><strong>Цепочка OUTPUT</strong>Пакеты, исходящие от сервера.</div>
+          <div class="grid2-item"><strong>Цепочка POSTROUTING</strong>NAT — подмена адреса на выходе.</div>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash — ufw</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">ufw status verbose
+ufw enable
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow 22/tcp
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow from 192.168.1.0/24 to any port 3306
+ufw delete allow 80/tcp
+ufw reload</div>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash — iptables</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">iptables -L -n -v --line-numbers         # просмотр правил
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED -j ACCEPT
+iptables -P INPUT DROP                   # политика по умолчанию
+
+# NAT (маскарад — выход в интернет через сервер)
+iptables -t nat -A POSTROUTING -o ens18 -j MASQUERADE
+
+# Сохранить правила (ALT Linux)
+iptables-save > /etc/sysconfig/iptables</div>
+        </div>
+        <!-- БЛОК: добавь свои правила файрволла -->
+      </div>
+    </div>
+
+    <!-- Пользователи -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon purple">👥</div>
+        <div class="card-heading">
+          <div class="card-title">Пользователи и права доступа</div>
+          <div class="card-sub">useradd · группы · sudo · chmod · chown</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text">Управление пользователями — одна из базовых задач администратора. В ALT Linux для добавления пользователей можно использовать <code>useradd</code> или <code>adduser</code> (интерактивный).</p>
+
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content"># Создать пользователя с домашней директорией
+useradd -m -s /bin/bash alice
+passwd alice
+
+# Группы
+groupadd devteam
+usermod -aG devteam alice
+usermod -aG wheel alice          # добавить в sudo (ALT Linux)
+
+# Проверка
+id alice
+groups alice
+
+# Права на директорию
+chown -R alice:devteam /srv/project
+chmod 770 /srv/project           # rwxrwx---
+chmod 755 /srv/www               # rwxr-xr-x
+
+# sudo — отредактировать через visudo
+# alice ALL=(ALL) NOPASSWD:ALL</div>
+        </div>
+
+        <div class="hl-note blue">
+          <strong>ALT Linux — группа wheel</strong>
+          В ALT Linux пользователи, которым нужен sudo, добавляются в группу <code>wheel</code>, а не <code>sudo</code> как в Debian/Ubuntu.
+        </div>
+        <!-- БЛОК: добавь список пользователей задания -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════ РАЗДЕЛ: СИСТЕМА ═══════════════ -->
+  <div class="section-group">
+    <div class="section-title">Система и службы</div>
+
+    <!-- systemd -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon orange">⚙️</div>
+        <div class="card-heading">
+          <div class="card-title">systemd — управление службами</div>
+          <div class="card-sub">systemctl · journalctl · unit-файлы</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text">systemd — система инициализации в современных дистрибутивах Linux, включая ALT. Управляет запуском служб, монтированием, таймерами.</p>
+
+        <table class="kv-table">
+          <tr><td>systemctl start nginx</td><td>Запустить службу</td></tr>
+          <tr><td>systemctl stop nginx</td><td>Остановить службу</td></tr>
+          <tr><td>systemctl restart nginx</td><td>Перезапустить</td></tr>
+          <tr><td>systemctl reload nginx</td><td>Перечитать конфиг без остановки</td></tr>
+          <tr><td>systemctl enable nginx</td><td>Автозапуск при загрузке</td></tr>
+          <tr><td>systemctl disable nginx</td><td>Убрать из автозапуска</td></tr>
+          <tr><td>systemctl status nginx</td><td>Статус и последние логи</td></tr>
+          <tr><td>systemctl list-units --failed</td><td>Упавшие службы</td></tr>
+        </table>
+
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash — journalctl</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">journalctl -u nginx -f               # логи службы в реальном времени
+journalctl -xe                       # ошибки системы
+journalctl --since "1 hour ago"
+journalctl -b                        # логи с последней загрузки
+journalctl -p err                    # только ошибки</div>
+        </div>
+        <!-- БЛОК: добавь свои unit-файлы если нужно -->
+      </div>
+    </div>
+
+    <!-- Пакеты -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon green">📦</div>
+        <div class="card-heading">
+          <div class="card-title">Управление пакетами — apt-get / apt</div>
+          <div class="card-sub">установка · удаление · репозитории</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text">В ALT Linux используется пакетный менеджер <strong>apt-get</strong> и <strong>apt-rpm</strong>. Репозитории прописаны в <code>/etc/apt/sources.list.d/</code>.</p>
+
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">apt-get update                        # обновить список пакетов
+apt-get upgrade                       # обновить установленные
+apt-get install nginx                 # установить пакет
+apt-get remove nginx                  # удалить пакет
+apt-get autoremove                    # удалить лишние зависимости
+apt-cache search nginx                # поиск пакета
+apt-cache show nginx                  # информация о пакете
+rpm -qa | grep nginx                  # проверить установку (RPM)
+rpm -ql nginx                         # список файлов пакета</div>
+        </div>
+
+        <div class="hl-note blue">
+          <strong>ALT Linux — особенность</strong>
+          В отличие от Debian/Ubuntu, ALT Linux основан на RPM-пакетах, но использует APT как фронтенд. Команды похожи, но пакеты в формате <code>.rpm</code>.
+        </div>
+        <!-- БЛОК: добавь список нужных пакетов -->
+      </div>
+    </div>
+
+    <!-- Диагностика -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon blue">📊</div>
+        <div class="card-heading">
+          <div class="card-title">Диагностика системы</div>
+          <div class="card-sub">top · df · ss · dmesg · проверка состояния</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text">Базовые инструменты для мониторинга состояния сервера — CPU, RAM, диски, открытые порты, сетевые соединения.</p>
+
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content"># Процессы и память
+top / htop
+free -h                              # RAM
+ps aux | grep nginx                  # найти процесс
+
+# Диски
+df -h                                # занятое место
+du -sh /var/*                        # размер директорий
+lsblk                                # блочные устройства
+
+# Сеть
+ss -tlnp                             # открытые TCP-порты
+ss -ulnp                             # UDP-порты
+ip addr show                         # IP-адреса интерфейсов
+ping -c 3 8.8.8.8                    # проверка связности
+traceroute 8.8.8.8                   # трассировка
+
+# Логи ядра
+dmesg | tail -20
+dmesg | grep -i error</div>
+        </div>
+        <!-- БЛОК: добавь специфику своего задания -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════ РАЗДЕЛ: СЛУЖЕБНЫЕ ЗАПИСИ ═══════════════ -->
+  <div class="section-group">
+    <div class="section-title">Мои заметки</div>
+
+    <!-- БЛОК ДЛЯ РЕДАКТИРОВАНИЯ: заметка 1 -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon purple">📝</div>
+        <div class="card-heading">
+          <div class="card-title">Заметка 1 — [сюда название темы]</div>
+          <div class="card-sub">редактируй этот блок под своё задание</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text">
+          <!-- ✏️ РЕДАКТИРУЙ ЗДЕСЬ: замени этот текст на нужное описание -->
+          Здесь можно написать что угодно — описание задания, порядок действий, ссылки на конфиги.
+        </p>
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">
+# ✏️ РЕДАКТИРУЙ ЗДЕСЬ: вставь свои команды
+echo "пример команды"
+          </div>
+        </div>
+        <!-- ✏️ Добавляй блоки .hl-note, .kv-table, .code-wrap по образцу выше -->
+      </div>
+    </div>
+
+    <!-- БЛОК ДЛЯ РЕДАКТИРОВАНИЯ: заметка 2 -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon orange">📝</div>
+        <div class="card-heading">
+          <div class="card-title">Заметка 2 — [сюда название темы]</div>
+          <div class="card-sub">редактируй этот блок под своё задание</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text">
+          <!-- ✏️ РЕДАКТИРУЙ ЗДЕСЬ -->
+          Сюда можно вставить последовательность шагов, конфиг или объяснение.
+        </p>
+        <div class="hl-note green">
+          <!-- ✏️ РЕДАКТИРУЙ ЗДЕСЬ: замени на свою подсказку -->
+          <strong>💡 Подсказка</strong>
+          Здесь — важная заметка по этому заданию.
+        </div>
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">
+# ✏️ РЕДАКТИРУЙ ЗДЕСЬ
+echo "твои команды"
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- БЛОК ДЛЯ РЕДАКТИРОВАНИЯ: заметка 3 -->
+    <div class="card">
+      <div class="card-head" onclick="toggle(this)">
+        <div class="card-icon green">📝</div>
+        <div class="card-heading">
+          <div class="card-title">Заметка 3 — [сюда название темы]</div>
+          <div class="card-sub">редактируй этот блок под своё задание</div>
+        </div>
+        <span class="card-arrow">›</span>
+      </div>
+      <div class="card-body">
+        <p class="info-text">
+          <!-- ✏️ РЕДАКТИРУЙ ЗДЕСЬ -->
+          Третья заметка. Заполни по образцу.
+        </p>
+        <table class="kv-table">
+          <!-- ✏️ РЕДАКТИРУЙ: добавляй строки <tr><td>команда</td><td>описание</td></tr> -->
+          <tr><td>команда_1</td><td>что делает</td></tr>
+          <tr><td>команда_2</td><td>что делает</td></tr>
+          <tr><td>команда_3</td><td>что делает</td></tr>
+        </table>
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">
+# ✏️ РЕДАКТИРУЙ ЗДЕСЬ
+echo "твои команды"
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /.page-wrap -->
+
+<script>
+function toggle(head) {
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+}
+
+function cp(btn) {
+  const code = btn.closest('.code-wrap').querySelector('.code-content');
+  navigator.clipboard.writeText(code.innerText.trim()).then(() => {
+    btn.textContent = 'скопировано!';
+    setTimeout(() => btn.textContent = 'copy', 1600);
+  });
+}
+</script>
+</body>
+</html>
