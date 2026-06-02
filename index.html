@@ -823,7 +823,11 @@ dmesg | grep -i error</div>
       </div>
       <div class="card-body">
         <p class="info-text">
-          <!-- ✏️ РЕДАКТИРУЙ ЗДЕСЬ: замени этот текст на нужное описание -->
+         /
+        </p>
+        <div class="code-wrap">
+          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+          <div class="code-content">
 +----------------+------------------+----------------+-------------------+----------+
 | Имя устройства | Интерфейс        | IP-адрес       | Шлюз по умолчанию | Сеть     |
 +----------------+------------------+----------------+-------------------+----------+
@@ -848,12 +852,6 @@ dmesg | grep -i error</div>
           Установка NMTUI, после бутпрото: apt-get update 
           apt-get install NetworkManager-tui
           systemctl enable --now NetworkManager
-        </p>
-        <div class="code-wrap">
-          <div class="code-top"><span class="code-label">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
-          <div class="code-content">
-# ✏️ РЕДАКТИРУЙ ЗДЕСЬ: вставь свои команды
-echo "пример команды"
           </div>
         </div>
         <!-- ✏️ Добавляй блоки .hl-note, .kv-table, .code-wrap по образцу выше -->
